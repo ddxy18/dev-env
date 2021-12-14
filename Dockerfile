@@ -6,10 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONT
     && sed -i 's/http:\/\/archive.ubuntu.com/http:\/\/mirror.sjtu.edu.cn/g' /etc/apt/sources.list \
     && apt-get -y update && apt-get -y upgrade \
     && apt-get install -y vim zsh curl pkg-config libssl-dev git cmake binutils libstdc++-11-dev \
-    clang clang-format clang-tidy clangd \
-    libc++-dev libc++abi-dev libunwind-dev \
-    && ln -s /usr/bin/clang /usr/bin/clang && ln -s /usr/bin/clang-format /usr/bin/clang-format \
-    && ln -s /usr/bin/clang-tidy /usr/bin/clang-tidy && ln -s /usr/bin/clangd /usr/bin/clangd \
+    clang clang-format clang-tidy clangd libc++-dev libc++abi-dev libunwind-dev \
     && git config --global core.editor vim \
     && chsh -s zsh
 
