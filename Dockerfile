@@ -16,6 +16,15 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
     && echo 'export EDITOR=vim' >> $HOME/.zshrc \
     && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k \
     && sed -i 's/\(ZSH_THEME=\).*/\1"powerlevel10k\/powerlevel10k"/g' $HOME/.zshrc \
+    && curl -SL https://raw.githubusercontent.com/ddxy18/dev-env/main/.p10k.zsh >> $HOME/.p10k.zsh \
+    && x=`echo '# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.'; \
+    echo '# Initialization code that may require console input (password prompts, [y/n]'; \
+    echo '# confirmations, etc.) must go above this block; everything else may go below.'; \
+    echo 'if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then'; \
+    echo 'source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"'; \
+    echo -e 'fi\n'; cat $HOME/.zshrc` \
+    && echo $x > $HOME/.zshrc \
+    && echo -e '# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.\n[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh\n' >> $HOME/.zshrc \
     # install rust toolchain
     && echo 'export RUSTUP_DIST_SERVER=https://mirror.sjtu.edu.cn/rust-static' >> $HOME/.zshrc \
     && echo 'export RUSTUP_UPDATE_ROOT=https://mirror.sjtu.edu.cn/rust-static/rustup' >> $HOME/.zshrc \
