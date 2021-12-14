@@ -12,15 +12,15 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONT
 
 SHELL ["zsh", "-c"]
 # zsh config
-RUN sh -c "$(curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
     && echo 'export EDITOR=vim' >> $HOME/.zshrc \
-    && git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k \
+    && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k \
     && sed -i 's/\(ZSH_THEME=\).*/\1"powerlevel10k\/powerlevel10k"/g' $HOME/.zshrc \
     # install rust toolchain
     && echo 'export RUSTUP_DIST_SERVER=https://mirror.sjtu.edu.cn/rust-static' >> $HOME/.zshrc \
     && echo 'export RUSTUP_UPDATE_ROOT=https://mirror.sjtu.edu.cn/rust-static/rustup' >> $HOME/.zshrc \
     && source $HOME/.zshrc \
-    && curl -SL https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup/archive/1.24.3/x86_64-unknown-linux-gnu/rustup-init >> rustup-init \
+    && curl -SL https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init >> rustup-init \
     && chmod a+x rustup-init && ./rustup-init --default-toolchain nightly -y && rm -rf rustup-init \
     && source $HOME/.cargo/env \
     && echo -e '[source]\n\n[source.mirror]\nregistry = "https://mirrors.sjtug.sjtu.edu.cn/git/crates.io-index/"\n\n[source.crates-io]\nreplace-with = "mirror"' \
