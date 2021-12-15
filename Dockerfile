@@ -5,7 +5,7 @@ FROM ubuntu:21.10
 RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone \
     && sed -i 's/http:\/\/archive.ubuntu.com/http:\/\/mirror.sjtu.edu.cn/g' /etc/apt/sources.list \
     && apt-get -y update && apt-get -y upgrade \
-    && apt-get install -y vim zsh curl pkg-config libssl-dev git cmake binutils libstdc++-11-dev \
+    && apt-get install -y vim zsh curl git cmake binutils \
     clang clang-format clang-tidy clangd libc++-dev libc++abi-dev libunwind-dev \
     && git config --global core.editor vim \
     && chsh -s zsh
@@ -36,6 +36,6 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
     >> $HOME/.cargo/config.toml \
     && echo -e '[target.x86_64-unknown-linux-gnu]\nrustflags = ["-C", "linker=clang"]' >> $HOME/.cargo/config.toml \
     && rm -rf $HOME/.cargo/registry \
-    && apt-get remove -y pkg-config gcc && apt-get autoremove -y
+    && apt-get remove -y gcc && apt-get autoremove -y
 
 CMD [ "zsh" ]
