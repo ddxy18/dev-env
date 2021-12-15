@@ -36,6 +36,9 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
     >> $HOME/.cargo/config.toml \
     && echo -e '[target.x86_64-unknown-linux-gnu]\nrustflags = ["-C", "linker=clang"]' >> $HOME/.cargo/config.toml \
     && rm -rf $HOME/.cargo/registry \
+    # enable coredump
+    && echo 'ulimit -c unlimited' >> $HOME/.zshrc \
+    && mkdir /var/crash && echo 'echo /var/crash/core.%e >> /proc/sys/kernel/core_pattern' >> $HOME/.zshrc \
     && apt-get remove -y gcc && apt-get autoremove -y
 
 CMD [ "zsh" ]
